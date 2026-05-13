@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Dashboard</title>
+</head>
+<body>
+    <h1>Upload Dashboard</h1>
+    <nav>
+        <% if (locals.user) { %>
+       
+<h2>Hello <%= user.firstname %></h2>
+<%- include('nav', {links: links}) %>
+
+        <% } else {%>
+    <a href="/sign-up">Sing up</a>
+    <a href="/login">Login</a>
+        <%}%>
+    </nav>
+    
+</body>
+</html>
