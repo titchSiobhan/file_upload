@@ -3,9 +3,13 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 import authRouter from './routes/authRoute.js'
 import profileRouter from './routes/profileRoutes.js';
+import upload from './routes/uploadRouter.js'
 import passport from 'passport';
 import './config/passport.js'
 import session from 'express-session';
+
+import uploadRouter from './routes/uploadRouter.js';
+
 // import assetsPath from path.join(__dirname, 'public')
 
 
@@ -31,10 +35,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
 app.use('/', authRouter);
-app.use('/', profileRouter)
+app.use('/', profileRouter);
+app.use('/', uploadRouter)
 app.use('/sign-up', authRouter)
 app.use('/login', authRouter);
-app.use('/profile', profileRouter)
+app.use('/profile', profileRouter);
+app.use('/upload', uploadRouter)
+
 
 app.listen(PORT, (error) => {
     if (error) {

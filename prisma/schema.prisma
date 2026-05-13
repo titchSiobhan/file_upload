@@ -20,4 +20,18 @@ model User {
   firstname  String?
   lastname   String?
   password  String
+  upload  upload[]
+}
+
+model upload {
+  id  Int  @id @default(autoincrement())
+  filename  String 
+  originalName String
+  extension  String
+  mimetype    String
+  size        Int
+  path        String
+  uploadedAt  DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
 }

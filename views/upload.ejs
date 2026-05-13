@@ -6,6 +6,13 @@
     <title>Upload</title>
 </head>
 <body>
-    <form action="/upload" method="POST"></form>
+    <%- include('nav', {links: links}) %>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="title">Title</label>
+        <input type="text" name='filename'>
+        <label for="file">File</label>
+        <input type="file" name="file" id="">
+        <button type="submit">Upload</button>
+    </form>
 </body>
 </html>
