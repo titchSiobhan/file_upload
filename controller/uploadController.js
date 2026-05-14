@@ -14,6 +14,8 @@ async function uploadFile(req, res, next) {
         size: req.file.size,
         path: req.file.path,
         userId: req.user.id,
+        folderId: Number(req.body.folderId)
+
       }
     })
 
@@ -26,5 +28,73 @@ async function uploadFile(req, res, next) {
 
 }
 
+async function addNewFolder(req, res, next) {
+    try {
+        const newFolder = await prisma.folder.create({
+            data: {
+                folderName: req.body.folderName,
+                userId: req.user.id,
+            }
+        })
+        req.folderRecord = newFolder;
+        next()
+    } catch (err) {
+        next(err)
+    }
+}
 
-export default uploadFile
+async function getFolders(req, res, next) {
+    try {
+        const folders = await prisma.folder.findMany()
+        req.folders = folders
+        next()
+    } catch (err) {
+        next(err)
+    }
+}
+
+async function getFiles(req, res, next) {
+    try {
+        const file = await prisma.upload.findMany({
+            where: {
+                folderId: null
+            }
+        });
+        req.file = file;
+        next()
+        
+    } catch(err) {
+        next(err)
+    }
+}
+
+
+async function folder(req, res, next) {
+    try {
+        const folder = await prisma.folder.findUnique({
+            where: {
+                id: Number(req.params.id)
+            }
+        })
+        req. folder = folder
+        next()
+    } catch (err) {
+        next(err)
+    }
+}
+async function getFileInFolder(req, res, next) {
+    try {
+        const file = await prisma.upload.findMany({
+            where: {
+                folderId: req.folder.id
+            }
+        })
+        req.file = file
+        next()
+    } catch(err) {
+        next(err)
+    }
+}
+
+
+export {uploadFile, addNewFolder, getFolders, getFiles, getFileInFolder, folder}

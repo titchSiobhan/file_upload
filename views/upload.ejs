@@ -12,6 +12,13 @@
         <input type="text" name='filename'>
         <label for="file">File</label>
         <input type="file" name="file" id="">
+        <label for="folderId">Folder</label>
+        <select name="folderId" id="">
+            <option value="">None</option>
+            <% for (let i = 0; i < folders.length; i++) { %>  
+            <option value="<%= folders[i].id %>"><%= folders[i].folderName %></option>
+            <% } %>
+        </select>
         <button type="submit">Upload</button>
     </form>
 </body>

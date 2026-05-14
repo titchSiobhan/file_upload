@@ -10,5 +10,26 @@
         <%- include('nav', {links: links}) %>
     </nav>
     <h1>Hello <%= user.firstname %></h1>
+    <div class="addBtn">
+        <a href="/newFolder">New folder</a>
+        <form action="/newFolder" method="POST">   
+           
+            <input type="text" name="folderName" placeholder="Folder name">
+            <button type="submit">Create</button>
+        </form>
+    </div>
+
+    <% if (folders) { %>
+    <%- include ('folder', {folders}) %>
+    <% } else { %> 
+        <p>No folders</p>
+        <% } %>
+
+
+         <% if (file) { %>
+    <%- include ('file', {file}) %>
+    <% } else { %> 
+        <p>No file</p>
+        <% } %>
 </body>
 </html>

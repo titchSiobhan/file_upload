@@ -18,3 +18,4 @@ authRouter.get('/logout', authController.logout);
 
 
 export default  authRouter
+ 

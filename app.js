@@ -40,7 +40,9 @@ app.use('/', uploadRouter)
 app.use('/sign-up', authRouter)
 app.use('/login', authRouter);
 app.use('/profile', profileRouter);
+app.use('/profile', uploadRouter)
 app.use('/upload', uploadRouter)
+app.use('/:id', uploadRouter)
 
 
 app.listen(PORT, (error) => {
