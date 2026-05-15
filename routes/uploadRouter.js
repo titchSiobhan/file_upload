@@ -28,9 +28,13 @@ uploadRouter.post('/newFolder', uploadController.addNewFolder,
         res.redirect('/profile')
     }
 )
-uploadRouter.get('/:id', ensureAuthentication, uploadController.folder, uploadController.getFileInFolder, (req, res) => {
+
+
+
+uploadRouter.get('upload/:id', ensureAuthentication, uploadController.folder, uploadController.getFileInFolder, (req, res) => {
     res.render('inFolder', {links: links, folder: req.folder, user: req.user, file: req.file})
 })
+
 
 
 

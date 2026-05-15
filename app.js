@@ -10,7 +10,6 @@ import session from 'express-session';
 
 import uploadRouter from './routes/uploadRouter.js';
 
-// import assetsPath from path.join(__dirname, 'public')
 
 
 const app = express()
@@ -31,18 +30,23 @@ app.use(express.json());
 const __filename =fileURLToPath(import.meta.url);
 const __dirname =path.dirname(__filename);
 
+const assetsPath = path.join(__dirname, 'public');
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
+app.use(express.static('public'))
 
 app.use('/', authRouter);
 app.use('/', profileRouter);
 app.use('/', uploadRouter)
 app.use('/sign-up', authRouter)
 app.use('/login', authRouter);
-app.use('/profile', profileRouter);
-app.use('/profile', uploadRouter)
+// app.use('/profile', profileRouter);
+// app.use('/profile', uploadRouter)
 app.use('/upload', uploadRouter)
-app.use('/:id', uploadRouter)
+
+
 
 
 app.listen(PORT, (error) => {

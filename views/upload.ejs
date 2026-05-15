@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>Upload</h1>
     <%- include('nav', {links: links}) %>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <label for="title">Title</label>
-        <input type="text" name='filename'>
-        <label for="file">File</label>
+        <input type="text" name='newfilename'>
+        <label for="newfilename">File</label>
         <input type="file" name="file" id="">
         <label for="folderId">Folder</label>
         <select name="folderId" id="">
-            <option value="">None</option>
+            <option value=null>None</option>
             <% for (let i = 0; i < folders.length; i++) { %>  
             <option value="<%= folders[i].id %>"><%= folders[i].folderName %></option>
             <% } %>

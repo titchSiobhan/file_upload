@@ -1,9 +1,22 @@
 
     <% for (let i = 0; i < file.length; i++) { %>
         <div class="file">
-        <img src="/public/images/003-file.svg" alt="File icon">
-            
-        <p><%= file[i].filename %></p>
+        <img src="/images/003-file.svg" alt="File icon">
+         <div class="info">  
+        <p>
+            <% if (file[i].newfilename) { %><%= file[i].newfilename %>
+            <% } else { %>
+            <%= file[i].originalName %><% } %>
+        </p>
+        <p>
+            <%=(file[i].size / (1024 *1024)).toFixed(2) %> MB</p>
+        <p><%= file[i].uploadTime %></p>
 
+
+        <a href="/download/<%= file[i].id %>"><i class="fa-solid fa-download"></i>download</a>
+    </div> 
         </div>
     <% } %>
+
+    <!-- name, size, and upload time -->
+     

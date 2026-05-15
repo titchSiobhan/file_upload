@@ -4,23 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Upload Dashboard</h1>
-    <nav>
+    
         <% if (locals.user) { %>
        
 
 <%- include('nav', {links: links}) %>
 
         <% } else {%>
-    <a href="/sign-up">Sing up</a>
+            <nav>
+    <a href="/sign-up">Sign up</a>
     <a href="/login">Login</a>
+</nav>
         <%}%>
-    </nav>
+    
     <% if (locals.user) { %>
     <h2>Hello <%= user.firstname %></h2>
+  <div class="addBtn">
+        <p 
+        class="addFolder" onClick="toggleForm()">New folder</p>
+        <form action="/newFolder" method="POST" class="hidden">   
+           
+            <input type="text" name="folderName" placeholder="Folder name" >
+            <button type="submit">Create</button>
+        </form>
+    </div>
+<div class="folderArea">
+    <% if (folders) { %>
+    <%- include ('folder', {folders}) %>
+    <% } else { %> 
+        <p>No folders</p>
+        <% } %>
+        </div>
 
+<div class="fileArea">
+         <% if (file) { %>
+    <%- include ('file', {file}) %>
+    <% } else { %> 
+        <p>No file</p>
+        <% } %>
+        </div>
+        <script> function toggleForm() { 
+            document.querySelector('.hidden').classList.toggle('hidden')
+
+        }</script>
     <% } %>
 </body>
 </html>

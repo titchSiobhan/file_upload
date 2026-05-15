@@ -4,32 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= user.firstname %></title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/9e80d3d242.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav>
-        <%- include('nav', {links: links}) %>
-    </nav>
     <h1>Hello <%= user.firstname %></h1>
+    
+        <%- include('nav', {links: links}) %>
+   
+    
     <div class="addBtn">
-        <a href="/newFolder">New folder</a>
-        <form action="/newFolder" method="POST">   
+        <p 
+        class="addFolder" onClick="toggleForm()">New folder</p>
+        <form action="/newFolder" method="POST" class="hidden">   
            
-            <input type="text" name="folderName" placeholder="Folder name">
+            <input type="text" name="folderName" placeholder="Folder name" >
             <button type="submit">Create</button>
         </form>
     </div>
-
+<div class="folderArea">
     <% if (folders) { %>
     <%- include ('folder', {folders}) %>
     <% } else { %> 
         <p>No folders</p>
         <% } %>
+        </div>
 
-
+<div class="fileArea">
          <% if (file) { %>
     <%- include ('file', {file}) %>
     <% } else { %> 
         <p>No file</p>
         <% } %>
+        </div>
+        <script> function toggleForm() { 
+            document.querySelector('.hidden').classList.toggle('hidden')
+
+        }</script>
 </body>
 </html>

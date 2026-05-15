@@ -1,8 +1,9 @@
 const links = [
     {href: '/', text: 'Home'},
+    
+    // {href:'/profile', text:'Profile'},
+    {href:'/upload', text:'Upload'}, 
     {href:'/logout', text:'Logout'},
-    {href:'/profile', text:'Profile'},
-    {href:'/upload', text:'Upload'}
 
 ]
 

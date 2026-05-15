@@ -37,6 +37,7 @@ model upload {
   userId      Int
   folder  folder? @relation(fields: [folderId], references: [id])
   folderId  Int?
+  newfilename   String?
 }
 
 model folder {
