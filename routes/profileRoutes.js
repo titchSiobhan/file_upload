@@ -10,9 +10,6 @@ import * as uploadController from '../controller/uploadController.js'
 
 
 
-profileRouter.get('/profile',  profileController.ensureAuthentication, uploadController.getFolders, uploadController.getFiles, (req, res) => {
-    res.render('profile', {user: req.user, links: links, folders: req.folders, file: req.file})
-})
 
 
 profileRouter.get('/download/:id', profileController.ensureAuthentication, uploadController.download, (req, res) => ('profile')

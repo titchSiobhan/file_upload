@@ -15,17 +15,23 @@
     <a href="/login">Login</a>
 </nav>
     <form action="/sign-up" method="POST">
+        <% if (message) { %>
+  <p class="error"><%= message %></p>
+<% } %>
    <label for="username">Email</label>
-   <input type="email" name="username" id="">
+   <input type="email" name="username" placeholder="Email">
    <label for="password">Password</label>
-   <input type="password" name="password" id="">
-   <label for="comfirmPassport">Confirm password</label>
-   <input type="password" name="comfirmPassport" id="">
+   <input type="password" name="password" placeholder="Password" id="password">
+   <label for="confirmPassword">Confirm password</label>
+   <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword">
    <label for="firstname">First name</label>
-   <input type="text" name="firstname" id="">
+   <input type="text" name="firstname" placeholder="First name">
    <label for="lastname">Last name</label>
-   <input type="text" name="lastname" id="">
+   <input type="text" name="lastname" placeholder="Last name">
    <button type="submit">Sign up</button>
 </form>
+<script> function checkPassword() {
+    document.getElementById("password").value === document.getElementById("confirmPassword").value
+    if (password !== confirmPassword) { alert("Passwords do not match") }}</script>
 </body>
 </html>

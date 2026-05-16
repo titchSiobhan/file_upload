@@ -2,6 +2,7 @@ import prisma from '../lib/prisma.js';
 import links from '../data/links.js';
 import path from 'path';
 
+
 async function uploadFile(req, res, next) {
 	try {
 		const upload = await prisma.upload.create({
@@ -84,7 +85,7 @@ async function folder(req, res, next) {
 			},
 		});
 		if (!folder) {
-			return res.redirect("/profile");
+			return res.redirect("/");
 		}
 
 		req.folder = folder;

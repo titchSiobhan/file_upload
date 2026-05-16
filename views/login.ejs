@@ -14,7 +14,9 @@
 </nav>
     <form action="/login" method="POST">
         
-        
+            <% if (message) { %>
+  <p class="error"><%= message %></p>
+<% } %>
 
         
         <label for="username">Email</label>

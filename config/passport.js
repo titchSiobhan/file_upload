@@ -10,7 +10,7 @@ new LocalStrategy(async (username, password, done) => {
             where: {username},
         })
         if (!user) {
-            return done(null, false, {message: 'incorrect email'})
+            return done(null, false, {message: 'Incorrect email!'})
         }
 
         const match = await bcrypt.compare(password, user.password);

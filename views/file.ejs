@@ -1,6 +1,10 @@
 
     <% for (let i = 0; i < file.length; i++) { %>
         <div class="file">
+        
+        <p class="delete">
+            <a href="/deleteFile/<%= file[i].id %>"><i class="fa-solid fa-trash"></i>delete</a>
+            </p>
         <img src="/images/003-file.svg" alt="File icon">
          <div class="info">  
         <p>

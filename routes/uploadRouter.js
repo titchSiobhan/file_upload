@@ -2,40 +2,46 @@ import express from 'express';
 const uploadRouter = express.Router();
 import * as uploadController from '../controller/uploadController.js';
 import passport from 'passport';
-import links from'../data/links.js';
+import links from '../data/links.js';
 import multer from 'multer';
-
-
+import { validateFile } from '../middleware/validateFile.js';
 
 import { ensureAuthentication } from '../controller/profileController.js';
 
+const upload = multer({ dest: 'uploads/' });
 
+uploadRouter.get(
+	'/upload',
+	ensureAuthentication,
+	uploadController.getFolders,
+	(req, res) => {
+		const message = req.session.messages?.[0] || null;
+	req.session.messages = [];
+	console.log(message);
+		res.render('upload', { links: links, folders: req.folders, message });
+	},
+);
 
-const upload = multer({ dest: 'uploads/'});
+uploadRouter.post(
+	'/upload',
+	ensureAuthentication,
+	uploadController.getFolders,
+	
+	upload.single('file'),
+	validateFile,
+	uploadController.uploadFile,
+	async (req, res) => {
+		console.log(req.file);
+		res.redirect('/');
+	},
+);
 
-uploadRouter.get('/upload', ensureAuthentication, uploadController.getFolders, (req, res) => {
-    res.render('upload', {links: links, folders: req.folders})
-})
+uploadRouter.post(
+	'/newFolder',
+	uploadController.addNewFolder,
+	async (req, res) => {
+		res.redirect('/');
+	},
+);
 
-uploadRouter.post('/upload', ensureAuthentication, upload.single('file'), uploadController.uploadFile, 
-async (req, res) => {
-    console.log(req.file)
-    res.redirect('/profile')
-})
-
-uploadRouter.post('/newFolder', uploadController.addNewFolder,
-    async (req, res) => {
-        res.redirect('/profile')
-    }
-)
-
-
-
-uploadRouter.get('upload/:id', ensureAuthentication, uploadController.folder, uploadController.getFileInFolder, (req, res) => {
-    res.render('inFolder', {links: links, folder: req.folder, user: req.user, file: req.file})
-})
-
-
-
-
-export default uploadRouter
+export default uploadRouter;

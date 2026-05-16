@@ -1,8 +1,10 @@
 
     <% for (let i = 0; i < folders.length; i++) { %>
         <div class="folder">
+            <p class="delete"><a href="/deleteFolder/<%= folders[i].id %>"><i class="fa-solid fa-trash"></i>delete</a></p>
+        
+    <a href="/folder/<%= folders[i].id %>">
         <img src='/images/001-folder.svg' alt="Folder icon">
-    <a href="/<%= folders[i].id %>">
         <%= folders[i].folderName %></a> 
         </div>
     <% } %>
