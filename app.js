@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -13,14 +15,18 @@ import uploadRouter from './routes/uploadRouter.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(
-	session({
-		secret: 'cat',
-		resave: false,
-		saveUninitialized: false,
-	}),
-);
-
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false, 
+    saveUninitialized: false,
+    cookie: {
+    
+            httpOnly: true,
+            secure:  false,
+            maxAge: 1000 * 60 * 60 * 24 //day
+        
+    }
+}));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

@@ -1,30 +1,59 @@
 import prisma from '../lib/prisma.js';
 import links from '../data/links.js';
 import path from 'path';
-
+import cloudinary from '../lib/cloudinary.js';
+import { uploadToCloudinary } from '../helpers/cloudinaryUpload.js';
 
 async function uploadFile(req, res, next) {
+	 
 	try {
-		const upload = await prisma.upload.create({
+		if (!req.file) {
+			req.session.message = 'No file uploaded';
+			return res.redirect('/')
+		}
+		const uploadResult = await uploadToCloudinary(req.file.buffer)
+
+		await prisma.upload.create({
 			data: {
-				filename: req.file.filename,
+				filename: req.body.newfilename || req.file.originalname,
 				originalName: req.file.originalname,
 				extension: path.extname(req.file.originalname),
 				mimetype: req.file.mimetype,
 				size: req.file.size,
+				url: uploadResult.secure_url,
 				path: req.file.path,
 				userId: req.user.id,
 				folderId: Number(req.body.folderId),
                 newfilename: req.body.newfilename,
-			},
+			}
 		});
-
-		req.uploadRecord = upload;
 		next();
 	} catch (err) {
-		next(err);
+		next(err)
 	}
 }
+// async function uploadFile(req, res, next) {
+// 	try {
+// 		const upload = await prisma.upload.create({
+// 			data: {
+// 				filename: req.file.filename,
+// 				originalName: req.file.originalname,
+// 				extension: path.extname(req.file.originalname),
+// 				mimetype: req.file.mimetype,
+// 				size: req.file.size,
+// 				path: req.file.path,
+// 				userId: req.user.id,
+// 				folderId: Number(req.body.folderId),
+//                 newfilename: req.body.newfilename,
+// 			},
+// 		});
+
+// 		req.uploadRecord = upload;
+// 		next();
+// 	} catch (err) {
+// 		next(err);
+// 	}
+// }
 
 async function addNewFolder(req, res, next) {
 	try {
